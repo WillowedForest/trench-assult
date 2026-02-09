@@ -22,6 +22,8 @@ public class Agent : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        state = AiStates.chase;
+
     }
 
     // Update is called once per frame
@@ -30,21 +32,16 @@ public class Agent : MonoBehaviour
         if (target == null)
             return;
 
-        Vector3 differance = target.transform.position - transform.position;
 
-		float distance = Mathf.Sqrt(
-        Mathf.Pow(differance.x, 2f) +
-        Mathf.Pow(differance.y, 2f) +
-        Mathf.Pow(differance.z, 2f));
-
-		if (distance <= 10)
+        /*if (distance <= 10)
         {
             state = AiStates.chase;
         }
         else
         {
             state = AiStates.idle;
-        }
+        }*/
+
 
         switch(state)
         {
@@ -54,6 +51,27 @@ public class Agent : MonoBehaviour
 				agent.SetDestination(target.transform.position);
                 break;
 		}
+
+    }
+
+    void old()
+    {
+         Vector3 differance = target.transform.position - transform.position;
+
+		float distance = Mathf.Sqrt(
+        Mathf.Pow(differance.x, 2f) +
+        Mathf.Pow(differance.y, 2f) +
+        Mathf.Pow(differance.z, 2f));
+
+		/*if (distance <= 10)
+        {
+            state = AiStates.chase;
+        }
+        else
+        {
+            state = AiStates.idle;
+        }*/
+
 
     }
 }
