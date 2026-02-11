@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.IO;
 
@@ -10,13 +11,7 @@ public class fpsTracker : MonoBehaviour
     float m_lastFramerate = 0.0f;
     public float m_refreshTime = 0.5f;
 
-    private StreamWriter sw; 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
+    private StreamWriter sw;
 
     void Update()
     {
