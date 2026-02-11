@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.IO;
+using Tayx.Graphy;
 
 public class fpsTracker : MonoBehaviour
 {
@@ -11,24 +12,20 @@ public class fpsTracker : MonoBehaviour
     float m_lastFramerate = 0.0f;
     public float m_refreshTime = 0.5f;
 
-    private StreamWriter sw;
+    StreamWriter sw;
+
+    void Start()
+    {
+        sw = new StreamWriter(Application.dataPath + "/mono.cvs");
+        sw.WriteLine("Time,AvgFPS,1%low");
+    }
 
     void Update()
     {
-        if (m_timeCounter < m_refreshTime)
-        {
-            m_timeCounter += Time.deltaTime;
-            m_frameCounter++;
-        }
-        else
-        {
-            //This code will break if you set your m_refreshTime to 0, which makes no sense.
-            m_lastFramerate = (float)m_frameCounter / m_timeCounter;
-            sw = new StreamWriter("test.txt");
-            sw.WriteLine(m_lastFramerate.ToString());
-            sw.Close();
-            m_frameCounter = 0;
-            m_timeCounter = 0.0f;
-        }
+        float fps = GraphyManager.Instance.CurrentFPS;
+        float avg = GraphyManager.Instance.AverageFPS;
+        float low1 = GraphyManager.Instance.OnePercentFPS;
+        
+        sw.WriteLine($"{Time.time},{avg},{low1}");
     }
 }
