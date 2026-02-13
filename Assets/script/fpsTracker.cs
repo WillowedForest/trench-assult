@@ -20,6 +20,6 @@ public class fpsTracker : MonoBehaviour
         float avg = GraphyManager.Instance.AverageFPS;
         float low1 = GraphyManager.Instance.OnePercentFPS;
         
-        sw.WriteLine($"{Time.time},{avg},{low1}");
+        sw.WriteLine($"{Time.time},{fps},{avg},{low1}");
     }
 }
