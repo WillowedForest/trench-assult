@@ -5,13 +5,7 @@ using Tayx.Graphy;
 
 public class fpsTracker : MonoBehaviour
 {
-
-    // Update is called once per frame
-    int m_frameCounter = 0;
-    float m_timeCounter = 0.0f;
-    float m_lastFramerate = 0.0f;
-    public float m_refreshTime = 0.5f;
-
+    
     StreamWriter sw;
 
     void Start()
