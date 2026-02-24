@@ -23,6 +23,7 @@ public class Agent : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         state = AiStates.chase;
+        AgentManager.instance.RegesterAgent(gameObject);
 
     }
 

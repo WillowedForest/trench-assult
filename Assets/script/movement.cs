@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class movement : MonoBehaviour
@@ -8,7 +11,7 @@ public class movement : MonoBehaviour
     private Rigidbody rb;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -16,8 +19,30 @@ public class movement : MonoBehaviour
 		//transform.position = new Vector3(transform.position.x, a, transform.position.z);
     }
 
-    // Update is called once per frame
+
     void Update()
+    {
+        List<GameObject> agents;
+
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+           agents = AgentManager.instance.GetAllAgents();
+
+            foreach (GameObject agent in agents)
+            {
+                Debug.Log(agent.name);
+            }
+        }
+	}
+
+
+	void SetTransformX(float n)
+	{
+		transform.position = new Vector3(n, transform.position.y, transform.position.z);
+	}
+
+    void FixedUpdate()
     {
         float fHorizontalInput = Input.GetAxis("Horizontal");
 
@@ -29,20 +54,12 @@ public class movement : MonoBehaviour
 
         transform.Translate(movement);
 
-        rb.linearVelocity = movement;
 
-		if (Input.GetKey("escape"))
-		{
-			Application.Quit();
-		}
-	}
-
-
-	void SetTransformX(float n)
-	{
-		transform.position = new Vector3(n, transform.position.y, transform.position.z);
-	}
-
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+    }
 
 
 }
