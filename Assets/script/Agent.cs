@@ -1,61 +1,81 @@
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class Agent : MonoBehaviour
 {
-    //this is what the ai will try to get to
-    public GameObject target;
 
     //a private referance to the navMeshAgant component 
     private NavMeshAgent agent;
 
-    private enum AiStates
+
+    public struct AgentPathfind : IJob
     {
-        idle,
-        chase
+        public Vector3 targetPos;
+        public Vector3 currentPos;
+        public GameObject _player;
+        public NavMeshAgent _agnet;
+
+        public void Execute()
+        {
+            Vector3 differance = targetPos - currentPos;
+
+            float distance = Mathf.Sqrt(
+            Mathf.Pow(differance.x, 2f) +
+            Mathf.Pow(differance.y, 2f) +
+            Mathf.Pow(differance.z, 2f));
+
+            if (distance <= 10)
+            {
+                _agnet.SetDestination(_player.transform.position);
+            }
+            else
+            {
+                _agnet.SetDestination(targetPos);
+            }
+        }
     }
 
-    private AiStates state;
+    public void StartJob(Vector3 target, GameObject player)
+    {
+        AgentPathfind JobData = new AgentPathfind
+        {
+            targetPos = target,
+            currentPos = gameObject.transform.position,
+            _player = player,
+            _agnet = agent
+        };
+
+        JobData.Schedule();
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        state = AiStates.chase;
-        AgentManager.instance.RegesterAgent(gameObject);
-
+        AgentManager.instance.RegesterAgent(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (target == null)
-            return;
 
 
-        /*if (distance <= 10)
-        {
-            state = AiStates.chase;
-        }
-        else
-        {
-            state = AiStates.idle;
-        }*/
 
 
-        switch(state)
-        {
-            case AiStates.idle:
-                break;
-            case AiStates.chase:
-				agent.SetDestination(target.transform.position);
-                break;
-		}
 
-    }
 
-    void old()
+
+
+
+
+
+
+
+
+
+    // old code that is going to be removed once the refactor and optimisation is complete
+
+    /*void old()
     {
          Vector3 differance = target.transform.position - transform.position;
 
@@ -64,15 +84,36 @@ public class Agent : MonoBehaviour
         Mathf.Pow(differance.y, 2f) +
         Mathf.Pow(differance.z, 2f));
 
-		/*if (distance <= 10)
+        /*if (distance <= 10)
         {
             state = AiStates.chase;
         }
         else
         {
             state = AiStates.idle;
-        }*/
+        }
+
+        if (target == null)
+            return;
+
+        /*if (distance <= 10)
+        {
+            state = AiStates.chase;
+        }
+        else
+        {
+            state = AiStates.idle;
+        }
 
 
-    }
+        switch (state)
+        {
+            case AiStates.idle:
+                break;
+            case AiStates.chase:
+                agent.SetDestination(target.transform.position);
+                break;
+        }
+
+    }*/
 }

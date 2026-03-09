@@ -15,31 +15,17 @@ public class movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-       // float a = transform.position.y / 2;
-		//transform.position = new Vector3(transform.position.x, a, transform.position.z);
+        AgentManager.instance.player = this.gameObject;
     }
 
 
     void Update()
     {
-        List<GameObject> agents;
 
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-           agents = AgentManager.instance.GetAllAgents();
-
-            foreach (GameObject agent in agents)
-            {
-                Debug.Log(agent.name);
-            }
+            AgentManager.instance.StartRound();
         }
-	}
-
-
-	void SetTransformX(float n)
-	{
-		transform.position = new Vector3(n, transform.position.y, transform.position.z);
 	}
 
     void FixedUpdate()
@@ -60,6 +46,5 @@ public class movement : MonoBehaviour
             Application.Quit();
         }
     }
-
 
 }

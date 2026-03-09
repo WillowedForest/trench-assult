@@ -5,7 +5,14 @@ public class AgentManager : MonoBehaviour
 {
     public static AgentManager instance;
 
-    private LinkedList<GameObject> agents;
+    private LinkedList<GameObject> agents = new LinkedList<GameObject>();
+
+    private Transform TargetTransform;
+
+    public GameObject player;
+
+    private Queue<Agent> toPathfind = new Queue<Agent>();
+
 
     void Awake()
     {
@@ -15,7 +22,6 @@ public class AgentManager : MonoBehaviour
             Destroy(this);
     }
 
-
     public void RegesterAgent(GameObject agent)
     {
         agents.AddLast(agent);
@@ -23,14 +29,30 @@ public class AgentManager : MonoBehaviour
 
     public List<GameObject> GetAllAgents()
     {
-        List<GameObject> agents = new List<GameObject>();  
+        List<GameObject> _agents = new List<GameObject>();  
 
-        foreach (GameObject agent in agents)
+        foreach(GameObject agent in agents)
         {
-            agents.Add(agent);
+            _agents.Add(agent);
         }
-
-        return agents;
+        return _agents;
     }
 
+    private void FixedUpdate()
+    {
+        TargetTransform = player.transform;
+    }
+
+    public void StartRound()
+    {
+        foreach(GameObject Agent in agents)
+        {
+            toPathfind.Enqueue(Agent.GetComponent<Agent>());
+        }
+
+        foreach(Agent _agent in toPathfind)
+        {
+            _agent.StartJob(TargetTransform.position, player);
+        }
+    }
 }
