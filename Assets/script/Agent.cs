@@ -14,7 +14,7 @@ public class Agent : MonoBehaviour
     {
         public Vector3 targetPos;
         public Vector3 currentPos;
-        public GameObject _player;
+        public Vector3 playerLivePos;
         public NavMeshAgent _agnet;
 
         public void Execute()
@@ -28,7 +28,7 @@ public class Agent : MonoBehaviour
 
             if (distance <= 10)
             {
-                _agnet.SetDestination(_player.transform.position);
+                _agnet.SetDestination(playerLivePos);
             }
             else
             {
@@ -43,7 +43,7 @@ public class Agent : MonoBehaviour
         {
             targetPos = target,
             currentPos = gameObject.transform.position,
-            _player = player,
+            playerLivePos = AgentManager.instance.player.transform.position,
             _agnet = agent
         };
 
