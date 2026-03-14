@@ -1,19 +1,30 @@
+using System;
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class AgentManager : MonoBehaviour
 {
     public static AgentManager instance;
 
-    private LinkedList<GameObject> agents = new LinkedList<GameObject>();
+    private List<GameObject> agents = new List<GameObject>();
 
-    private Transform TargetTransform;
+    private float3 playerTransform;
 
     public GameObject player;
 
     private Queue<Agent> toPathfind = new Queue<Agent>();
-
-
+    
+    private const float DETECTION_RADIUS = 20f;
+    
+    //native arrays
+    private NativeArray<float3> agentPositions;
+    private NativeArray<float3> agentCashedPlayerPositions;
+    private NativeArray<float3> agentResults;
+    
+    
     void Awake()
     {
         if (instance == null)
@@ -22,37 +33,59 @@ public class AgentManager : MonoBehaviour
             Destroy(this);
     }
 
+    void Start()
+    {
+        int agentCount = 150;
+        agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentCashedPlayerPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentResults = new NativeArray<float3>(agentCount, Allocator.Persistent);
+    }
+
     public void RegesterAgent(GameObject agent)
     {
-        agents.AddLast(agent);
+        agents.Add(agent);
     }
 
     public List<GameObject> GetAllAgents()
     {
-        List<GameObject> _agents = new List<GameObject>();  
-
-        foreach(GameObject agent in agents)
-        {
-            _agents.Add(agent);
-        }
-        return _agents;
+        return agents;
     }
 
     private void FixedUpdate()
     {
-        TargetTransform = player.transform;
+        playerTransform = player.transform.position;
     }
 
     public void StartRound()
     {
-        foreach(GameObject Agent in agents)
+        for (int i = 0; i < agents.Count; i++)
         {
-            toPathfind.Enqueue(Agent.GetComponent<Agent>());
+            agentCashedPlayerPositions[i] = player.transform.position;
         }
+        
+       var job = new AgentPlayerCheckJob
+       {
+           playerPos = playerTransform,
+           detectionRadius = DETECTION_RADIUS,
+           AgentPositions = agentPositions,
+           CashedPlayerPositions = agentCashedPlayerPositions,
+           Results = agentResults
+       };
+       
+       JobHandle handle = job.Schedule(agentPositions.Length, 64);
+       handle.Complete();
 
-        foreach(Agent _agent in toPathfind)
-        {
-            _agent.StartJob(TargetTransform.position, player);
-        }
+       for (int i = 0; i < agents.Count; i++)
+       {
+           float3 targetPosition = agentResults[i];
+           agents[i].GetComponent<Agent>().navMeshAgent.SetDestination(targetPosition);
+       }
+    }
+
+    private void OnDestroy()
+    {
+        agentPositions.Dispose();
+        agentCashedPlayerPositions.Dispose();
+        agentResults.Dispose();
     }
 }

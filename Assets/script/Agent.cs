@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.AI;
@@ -5,12 +7,11 @@ using UnityEngine.UI;
 
 public class Agent : MonoBehaviour
 {
+    
+    public NavMeshAgent navMeshAgent;
 
-    //a private referance to the navMeshAgant component 
-    private NavMeshAgent agent;
 
-
-    public struct AgentPathfind : IJob
+    /*public struct AgentPathfind : IJob
     {
         public Vector3 targetPos;
         public Vector3 currentPos;
@@ -35,9 +36,9 @@ public class Agent : MonoBehaviour
                 _agnet.SetDestination(targetPos);
             }
         }
-    }
+    }*/
 
-    public void StartJob(Vector3 target, GameObject player)
+    /*public void StartJob(Vector3 target, GameObject player)
     {
         AgentPathfind JobData = new AgentPathfind
         {
@@ -48,13 +49,13 @@ public class Agent : MonoBehaviour
         };
 
         JobData.Schedule();
-    }
+    }*/
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         AgentManager.instance.RegesterAgent(this.gameObject);
     }
 
