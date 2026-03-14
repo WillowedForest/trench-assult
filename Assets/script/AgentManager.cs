@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
@@ -24,6 +25,8 @@ public class AgentManager : MonoBehaviour
     private NativeArray<float3> agentCashedPlayerPositions;
     private NativeArray<float3> agentResults;
     
+    private WaitForSeconds recalculatePaths = new WaitForSeconds(1);
+    
     
     void Awake()
     {
@@ -35,11 +38,14 @@ public class AgentManager : MonoBehaviour
 
     void Start()
     {
-        int agentCount = 150;
+        int agentCount = 4492;
         agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
         agentCashedPlayerPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
         agentResults = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        
+        StartCoroutine(runCalculation());
     }
+    
 
     public void RegesterAgent(GameObject agent)
     {
@@ -54,6 +60,28 @@ public class AgentManager : MonoBehaviour
     private void FixedUpdate()
     {
         playerTransform = player.transform.position;
+        
+    }
+
+
+    /*IEnumerator runCalculation()
+    {
+        while (true)
+        {
+           StartRound();
+           yield return recalculatePaths; 
+        }
+    }*/
+    
+    IEnumerator runCalculation()
+    {
+        while (true)
+        {
+            StartRound();
+            Debug.Log("yep");
+            yield return recalculatePaths; 
+        }
+
     }
 
     public void StartRound()
