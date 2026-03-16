@@ -1,31 +1,48 @@
+using System.Numerics;
 using Unity.Burst;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
+using UnityEngine;
 
-    public struct AgentPlayerCheckJob : IJobParallelFor
+public struct AgentPlayerCheckJob : IJobParallelFor
     {
-        [ReadOnly] public float3 playerPos;
         [ReadOnly] public float detectionRadius;
         [ReadOnly] public NativeArray<float3> AgentPositions;
         
-        public NativeArray<float3> CashedPlayerPositions;
+        public float3 CashedPlayerPosition;
 
-        [WriteOnly] public NativeArray<float3> Results;
+        [WriteOnly] public NativeArray<bool> Results;
         
         public void Execute(int index)
         {
-            float3 agentPos = AgentPositions[index];
-            float distanceSq = math.distance(agentPos, playerPos);
-
-            if (distanceSq > detectionRadius * detectionRadius)
+            float3 zero = float3.zero;
+            
+            if (CashedPlayerPosition.x == zero.x || CashedPlayerPosition.y == zero.y ||
+                CashedPlayerPosition.z == zero.z)
             {
-                CashedPlayerPositions[index] = playerPos;
-                Results[index] = playerPos;
+                Results[index] = true;
+                return;
+            }
+            
+            float3 differance = CashedPlayerPosition - AgentPositions[index];
+
+            float distance = Mathf.Sqrt(
+                Mathf.Pow(differance.x, 2f) +
+                Mathf.Pow(differance.y, 2f) +
+                Mathf.Pow(differance.z, 2f));
+            
+
+
+            if (distance <= detectionRadius)
+            {
+                Results[index] = true;
             }
             else
             {
-                Results[index] = CashedPlayerPositions[index];
+                
+                Results[index] = false;
             }
+            
         }
     }

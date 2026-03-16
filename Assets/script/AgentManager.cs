@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -10,22 +9,26 @@ public class AgentManager : MonoBehaviour
 {
     public static AgentManager instance;
 
-    private List<GameObject> agents = new List<GameObject>();
+    private List<Agent> agents = new List<Agent>();
 
-    private float3 playerTransform;
+    private float3 CachedPlayerPosition;
 
     public GameObject player;
-
-    private Queue<Agent> toPathfind = new Queue<Agent>();
+    
+    private Vector3 playerPosition;
     
     private const float DETECTION_RADIUS = 20f;
+
+    private JobHandle handle;
+
+    private bool CalculationCheck = true;
     
     //native arrays
     private NativeArray<float3> agentPositions;
-    private NativeArray<float3> agentCashedPlayerPositions;
-    private NativeArray<float3> agentResults;
+    private NativeArray<bool> agentResults;
     
-    private WaitForSeconds recalculatePaths = new WaitForSeconds(1);
+    private WaitForSeconds recalculatePaths = new WaitForSeconds(0.5f);
+    private WaitForSeconds _GetPlayerPos = new WaitForSeconds(0.5f);
     
     
     void Awake()
@@ -38,82 +41,102 @@ public class AgentManager : MonoBehaviour
 
     void Start()
     {
-        int agentCount = 4492;
+        CachedPlayerPosition = player.transform.position;
+        StartCoroutine(GetPlayerPos());
+        
+        int agentCount = agents.Count;
         agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
-        agentCashedPlayerPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
-        agentResults = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
         
         StartCoroutine(runCalculation());
+        playerPosition = player.transform.position;
     }
     
 
-    public void RegesterAgent(GameObject agent)
+    public void RegesterAgent(Agent agent)
     {
         agents.Add(agent);
     }
 
-    public List<GameObject> GetAllAgents()
+    public List<Agent> GetAllAgents()
     {
         return agents;
     }
-
-    private void FixedUpdate()
-    {
-        playerTransform = player.transform.position;
-        
-    }
-
-
-    /*IEnumerator runCalculation()
-    {
-        while (true)
-        {
-           StartRound();
-           yield return recalculatePaths; 
-        }
-    }*/
     
     IEnumerator runCalculation()
     {
-        while (true)
+        while (CalculationCheck)
         {
             StartRound();
-            Debug.Log("yep");
+            //Debug.Log("yep");
             yield return recalculatePaths; 
+        }
+
+    }
+    
+    IEnumerator GetPlayerPos()
+    {
+        while (true)
+        {
+            CachedPlayerPosition = player.transform.position;
+            yield return _GetPlayerPos; 
         }
 
     }
 
     public void StartRound()
     {
+
+            for (int i = 0; i < agents.Count; i++)
+            {
+                bool targetPosition = agentResults[i];
+
+                if (targetPosition)
+                { 
+                    agents[i].navMeshAgent.SetDestination(player.transform.position);  
+                }
+                else
+                {
+                    agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
+                }
+            }
+        
         for (int i = 0; i < agents.Count; i++)
         {
-            agentCashedPlayerPositions[i] = player.transform.position;
+            agentPositions[i] = agents[i].transform.position;
         }
         
        var job = new AgentPlayerCheckJob
        {
-           playerPos = playerTransform,
            detectionRadius = DETECTION_RADIUS,
            AgentPositions = agentPositions,
-           CashedPlayerPositions = agentCashedPlayerPositions,
+           CashedPlayerPosition = CachedPlayerPosition,
            Results = agentResults
        };
        
-       JobHandle handle = job.Schedule(agentPositions.Length, 64);
+       Debug.Log(CachedPlayerPosition);
+       
+       handle = job.Schedule(agentPositions.Length, 64);
        handle.Complete();
-
-       for (int i = 0; i < agents.Count; i++)
-       {
-           float3 targetPosition = agentResults[i];
-           agents[i].GetComponent<Agent>().navMeshAgent.SetDestination(targetPosition);
-       }
     }
 
     private void OnDestroy()
     {
         agentPositions.Dispose();
-        agentCashedPlayerPositions.Dispose();
         agentResults.Dispose();
     }
+    
+    public void StopAgents()
+    {
+        CalculationCheck = false;
+    }
+    
+    public void restartAgents()
+    {
+        CalculationCheck = true;
+        StartCoroutine(runCalculation());
+    }
+    
+    
+    
 }
