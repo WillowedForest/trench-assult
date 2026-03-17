@@ -29,6 +29,7 @@ public class AgentManager : MonoBehaviour
     
     private WaitForSeconds recalculatePaths = new WaitForSeconds(0.5f);
     private WaitForSeconds _GetPlayerPos = new WaitForSeconds(0.5f);
+    private WaitForSeconds OneSecond = new WaitForSeconds(1f);
     
     
     void Awake()
@@ -84,9 +85,18 @@ public class AgentManager : MonoBehaviour
 
     }
 
+    IEnumerator RetryStartRound()
+    {
+        StartRound();
+        yield return recalculatePaths;
+    }
+
     public void StartRound()
     {
-
+        if (agents.Count == 0)
+        {
+            StartCoroutine(RetryStartRound());
+        }
             for (int i = 0; i < agents.Count; i++)
             {
                 bool targetPosition = agentResults[i];
@@ -114,7 +124,7 @@ public class AgentManager : MonoBehaviour
            Results = agentResults
        };
        
-       Debug.Log(CachedPlayerPosition);
+       //Debug.Log(CachedPlayerPosition);
        
        handle = job.Schedule(agentPositions.Length, 64);
        handle.Complete();
