@@ -11,11 +11,9 @@ public class AgentManager : MonoBehaviour
 
     private List<Agent> agents = new List<Agent>();
 
-    private float3 CachedPlayerPosition;
+
 
     public GameObject player;
-    
-    private Vector3 playerPosition;
     
     private const float DETECTION_RADIUS = 20f;
 
@@ -23,14 +21,14 @@ public class AgentManager : MonoBehaviour
 
     private bool CalculationCheck = true;
     
+    private float3 CachedPlayerPosition;
     //native arrays
     private NativeArray<float3> agentPositions;
     private NativeArray<bool> agentResults;
     
     private WaitForSeconds recalculatePaths = new WaitForSeconds(0.5f);
-    private WaitForSeconds _GetPlayerPos = new WaitForSeconds(0.5f);
-    private WaitForSeconds OneSecond = new WaitForSeconds(1f);
     
+    private WaitForSeconds _GetPlayerPos = new WaitForSeconds(0.5f);
     
     void Awake()
     {
@@ -50,7 +48,6 @@ public class AgentManager : MonoBehaviour
         agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
         
         StartCoroutine(runCalculation());
-        playerPosition = player.transform.position;
     }
     
 
@@ -84,32 +81,10 @@ public class AgentManager : MonoBehaviour
         }
 
     }
-
-    IEnumerator RetryStartRound()
-    {
-        StartRound();
-        yield return recalculatePaths;
-    }
+    
 
     public void StartRound()
     {
-        if (agents.Count == 0)
-        {
-            StartCoroutine(RetryStartRound());
-        }
-            for (int i = 0; i < agents.Count; i++)
-            {
-                bool targetPosition = agentResults[i];
-
-                if (targetPosition)
-                { 
-                    agents[i].navMeshAgent.SetDestination(player.transform.position);  
-                }
-                else
-                {
-                    agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
-                }
-            }
         
         for (int i = 0; i < agents.Count; i++)
         {
@@ -128,6 +103,21 @@ public class AgentManager : MonoBehaviour
        
        handle = job.Schedule(agentPositions.Length, 64);
        handle.Complete();
+       
+       
+       for (int i = 0; i < agents.Count; i++)
+       {
+           bool targetPosition = agentResults[i];
+
+           if (targetPosition)
+           { 
+               agents[i].navMeshAgent.SetDestination(player.transform.position);  
+           }
+           else
+           {
+               agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
+           }
+       }
     }
 
     private void OnDestroy()

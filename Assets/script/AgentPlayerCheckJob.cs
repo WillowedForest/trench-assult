@@ -1,5 +1,3 @@
-using System.Numerics;
-using Unity.Burst;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
@@ -10,7 +8,7 @@ public struct AgentPlayerCheckJob : IJobParallelFor
         [ReadOnly] public float detectionRadius;
         [ReadOnly] public NativeArray<float3> AgentPositions;
         
-        public float3 CashedPlayerPosition;
+        [ReadOnly] public float3 CashedPlayerPosition;
 
         [WriteOnly] public NativeArray<bool> Results;
         
