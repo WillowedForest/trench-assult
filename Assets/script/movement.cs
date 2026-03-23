@@ -15,7 +15,7 @@ public class movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        AgentManager.instance.player = this.gameObject;
+    //   AgentManager.instance.player = this.gameObject;
     }
 
 
@@ -24,7 +24,20 @@ public class movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            AgentManager.instance.StartRound();
+            SpawningManager.instance.spawnCount = SpawningManager.instance.spawnCount + 50;
+            SpawningManager.instance.StartSpawning();
+           // AgentManager.instance.StartRound();
+            Debug.Log("spawned");
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            AgentManager.instance.StopAgents();
+        }
+
+        if(Input.GetKeyDown(KeyCode.M)) 
+        {
+            AgentManager.instance.restartAgents();
         }
 	}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class AgentManager : MonoBehaviour
@@ -40,20 +41,41 @@ public class AgentManager : MonoBehaviour
 
     void Start()
     {
+       // Invoke("DelayedStart", 3);
+    }
+    
+    void DelayedStart()
+    {
         CachedPlayerPosition = player.transform.position;
         StartCoroutine(GetPlayerPos());
-        
+
         int agentCount = agents.Count;
         agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
         agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
-        
+
         StartCoroutine(runCalculation());
     }
-    
 
     public void RegesterAgent(Agent agent)
     {
         agents.Add(agent);
+        agentPositions.Dispose();
+        agentResults.Dispose();
+
+        int agentCount = agents.Count;
+        agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
+    }
+
+    public void UnRegesterAgent(Agent agent)
+    {
+        agents.Remove(agent);
+        agentPositions.Dispose();
+        agentResults.Dispose();
+
+        int agentCount = agents.Count;
+        agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
     }
 
     public List<Agent> GetAllAgents()
@@ -66,7 +88,6 @@ public class AgentManager : MonoBehaviour
         while (CalculationCheck)
         {
             StartRound();
-            //Debug.Log("yep");
             yield return recalculatePaths; 
         }
 
