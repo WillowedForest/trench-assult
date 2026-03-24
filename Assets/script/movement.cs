@@ -28,6 +28,7 @@ public class movement : MonoBehaviour
             SpawningManager.instance.StartSpawning();
            // AgentManager.instance.StartRound();
             Debug.Log("spawned");
+            Debug.Log(SpawningManager.instance.inScene);
         }
 
         if (Input.GetKeyDown(KeyCode.N))
@@ -38,6 +39,12 @@ public class movement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.M)) 
         {
             AgentManager.instance.restartAgents();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            AgentManager.instance.KillRandomAgent();
+            Debug.Log(SpawningManager.instance.inScene);
         }
 	}
 

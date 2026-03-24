@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEditor.Rendering;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AgentManager : MonoBehaviour
 {
     public static AgentManager instance;
 
     private List<Agent> agents = new List<Agent>();
-
-
 
     public GameObject player;
     
@@ -41,7 +39,8 @@ public class AgentManager : MonoBehaviour
 
     void Start()
     {
-       // Invoke("DelayedStart", 3);
+        Invoke("DelayedStart", 3);
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     
     void DelayedStart()
@@ -158,6 +157,10 @@ public class AgentManager : MonoBehaviour
         StartCoroutine(runCalculation());
     }
     
-    
+    public void KillRandomAgent()
+    {
+        Agent agent = agents[Random.Range(0, agents.Count)];
+        SpawningManager.instance.Agents.Release(agent);    
+    }
     
 }

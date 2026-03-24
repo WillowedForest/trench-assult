@@ -11,6 +11,8 @@ public class SpawningManager : MonoBehaviour
 
     public int spawnCount;
 
+    public int inScene;
+
     [SerializeField]
     private Agent _agentPrefab;
 
@@ -25,7 +27,7 @@ public class SpawningManager : MonoBehaviour
 
         if (_agentPrefab == null)
         {
-            Debug.Log("forgot to assin the agent prefab please assin it");
+            Debug.Log("forgot to assign the agent prefab please assign it");
             return;
         }
     }
@@ -52,16 +54,15 @@ public class SpawningManager : MonoBehaviour
 
     private void OnDestroyItem(Agent bullet)
     {
-        //Debug.Log($"Destroy: {bullet}");
         Destroy(bullet);
     }
 
     private void OnRelease(Agent @object)
     {
-        //Debug.Log($"Release: {@object}");
-        @object.gameObject.SetActive(false);
         @object.navMeshAgent.isStopped = true;
         @object.removeFromAgentList();
+        @object.gameObject.SetActive(false);
+        inScene--;
     }   
 
     private void OnGet(Agent @object)
@@ -70,7 +71,7 @@ public class SpawningManager : MonoBehaviour
         @object.gameObject.SetActive(true);
         @object.navMeshAgent.isStopped = false;
         @object.addToAgentList();
-
+        inScene++;
     }
 
     private Agent CreateItem()
@@ -82,24 +83,14 @@ public class SpawningManager : MonoBehaviour
 
         return agent;
     }
-
-
-
+    
     public void StartSpawning()
     {
-        for (int i = 0; i == spawnCount; ++i)
+        for (int i = 0; i != spawnCount; ++i)
         {
             GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             Agent agent = Agents.Get();
             agent.transform.position = spawner.transform.position;
         }
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
