@@ -24,27 +24,22 @@ public class SpawningManager : MonoBehaviour
             instance = this;
         else
             Destroy(this);
-
-        if (_agentPrefab == null)
-        {
-            Debug.Log("forgot to assign the agent prefab please assign it");
-            return;
-        }
     }
 
-    void Start()
+    public  void Init()
     {
-
         Agents = new ObjectPool<Agent>
-        (
-            createFunc: CreateItem,
-            actionOnGet: OnGet,
-            actionOnRelease: OnRelease,
-            actionOnDestroy: OnDestroyItem,
-            collectionCheck: true,   // helps catch double-release mistakes
-            defaultCapacity: 100,
-            maxSize: 5000
+(
+        createFunc: CreateItem,
+        actionOnGet: OnGet,
+        actionOnRelease: OnRelease,
+        actionOnDestroy: OnDestroyItem,
+        collectionCheck: true,   // helps catch double-release mistakes
+        defaultCapacity: 100,
+        maxSize: 5000
         );
+
+
     }
 
     public ObjectPool<Agent> GetPool()
@@ -52,9 +47,9 @@ public class SpawningManager : MonoBehaviour
         return Agents;
     }
 
-    private void OnDestroyItem(Agent bullet)
+    private void OnDestroyItem(Agent Object)
     {
-        Destroy(bullet);
+        Destroy(Object);
     }
 
     private void OnRelease(Agent @object)

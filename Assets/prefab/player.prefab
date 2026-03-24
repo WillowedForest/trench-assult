@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8007254960165752882}
   - component: {fileID: 2470263970928330395}
   - component: {fileID: 5509317082246325390}
+  - component: {fileID: 9109318738461254616}
   m_Layer: 0
   m_Name: player
   m_TagString: target
@@ -177,3 +178,15 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &9109318738461254616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115376604733116555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42bfdd00da48c5489c969e964d6e7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Init

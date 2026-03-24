@@ -37,9 +37,10 @@ public class AgentManager : MonoBehaviour
             Destroy(this);
     }
 
-    void Start()
+
+    public void Init()
     {
-        Invoke("DelayedStart", 3);
+        Invoke("DelayedStart", 1);
         player = GameObject.FindGameObjectWithTag("Player");
     }
     
