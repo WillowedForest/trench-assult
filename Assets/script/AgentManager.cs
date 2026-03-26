@@ -145,6 +145,9 @@ public class AgentManager : MonoBehaviour
     {
         agentPositions.Dispose();
         agentResults.Dispose();
+        agents = null;
+        _GetPlayerPos = null;
+        recalculatePaths = null;
     }
     
     public void StopAgents()
@@ -158,6 +161,10 @@ public class AgentManager : MonoBehaviour
         StartCoroutine(runCalculation());
     }
     
+    
+    /// <summary>
+    /// for debug only do not use in final game
+    /// </summary>
     public void KillRandomAgent()
     {
         Agent agent = agents[Random.Range(0, agents.Count)];
