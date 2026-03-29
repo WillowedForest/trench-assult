@@ -24,10 +24,7 @@ public class movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SpawningManager.instance.spawnCount = SpawningManager.instance.spawnCount + 50;
-            SpawningManager.instance.StartSpawning();
-           // AgentManager.instance.StartRound();
-            Debug.Log("spawned");
+            SpawningManager.instance.NextRound();
             Debug.Log(SpawningManager.instance.inScene);
         }
 

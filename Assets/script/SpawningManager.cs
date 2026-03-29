@@ -1,4 +1,5 @@
-using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -8,10 +9,16 @@ public class SpawningManager : MonoBehaviour
     public static SpawningManager instance;
 
     public GameObject[] spawnPoints;
-
-    public int spawnCount;
-
+    
+    private WaitForSeconds _CheckInterval = new WaitForSeconds(1.0f);
+    
+    //how many need to be spawned at the start of a round
+    public int spawnCount = 100;
+    
+    //how many are still alive in the current level
     public int inScene;
+
+    public bool isInRound = false;
 
     [SerializeField]
     private Agent _agentPrefab;
@@ -56,11 +63,10 @@ public class SpawningManager : MonoBehaviour
         @object.removeFromAgentList();
         @object.gameObject.SetActive(false);
         inScene--;
-    }   
+    }
 
     private void OnGet(Agent @object)
     {
-        //Debug.Log($"Get: {@object}");
         @object.gameObject.SetActive(true);
         @object.navMeshAgent.isStopped = false;
         @object.addToAgentList();
@@ -75,14 +81,48 @@ public class SpawningManager : MonoBehaviour
 
         return agent;
     }
-    
-    public void StartSpawning()
+
+    public void NextRound()
     {
+        if (spawnCount <= 1000)
+        {
+            spawnCount = spawnCount + 500;
+        }
+        else if (spawnCount > 1000)
+        {
+            spawnCount = spawnCount + 100;
+        }
+        else
+        {
+            Debug.LogError("god knows how but there is a valid number in spawn count good luck :3");
+        }
+        
         for (int i = 0; i != spawnCount; ++i)
         {
             GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             Agent agent = Agents.Get();
             agent.transform.position = spawner.transform.position;
         }
+
+        StartCoroutine(ShouldRoundEnd());
     }
-}
+
+    IEnumerator ShouldRoundEnd()
+    {
+        while (isInRound)
+        {
+            if (inScene == 0)
+            {
+                isInRound = false;
+                Invoke("NextRound", 1.0f);
+                yield return null;
+            }
+            else
+            {
+                isInRound = true;
+            }
+
+            yield return _CheckInterval;
+        }
+    }
+}   

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -88,10 +87,9 @@ public class AgentManager : MonoBehaviour
     {
         while (CalculationCheck)
         {
-            StartRound();
+            PathFind();
             yield return recalculatePaths; 
         }
-
     }
     
     IEnumerator GetPlayerPos()
@@ -101,11 +99,9 @@ public class AgentManager : MonoBehaviour
             CachedPlayerPosition = player.transform.position;
             yield return _GetPlayerPos; 
         }
-
     }
-    
 
-    public void StartRound()
+    public void PathFind()
     {
         
         for (int i = 0; i < agents.Count; i++)
@@ -121,13 +117,14 @@ public class AgentManager : MonoBehaviour
            Results = agentResults
        };
        
-       //Debug.Log(CachedPlayerPosition);
-       
        handle = job.Schedule(agentPositions.Length, 64);
-       Invoke("DelayedRoundStart", 0.15f);
+       Invoke("DelayedPathFind", 0.15f);
     }
-
-    private void DelayedRoundStart()
+    
+    /// <summary>
+    /// never call this on its own its build to be a part of the function with the same name without delayed 
+    /// </summary>
+    private void DelayedPathFind()
     {
         handle.Complete();
        
@@ -166,7 +163,6 @@ public class AgentManager : MonoBehaviour
         CalculationCheck = true;
         StartCoroutine(runCalculation());
     }
-    
     
     /// <summary>
     /// for debug only do not use in final game
