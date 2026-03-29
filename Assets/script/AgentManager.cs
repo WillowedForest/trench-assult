@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -40,8 +41,8 @@ public class AgentManager : MonoBehaviour
 
     public void Init()
     {
-        Invoke("DelayedStart", 1);
         player = GameObject.FindGameObjectWithTag("Player");
+        Invoke("DelayedStart", 1);
     }
     
     void DelayedStart()
@@ -116,29 +117,34 @@ public class AgentManager : MonoBehaviour
        {
            detectionRadius = DETECTION_RADIUS,
            AgentPositions = agentPositions,
-           CashedPlayerPosition = CachedPlayerPosition,
+           CashedPlayerPosition = player.transform.position,
            Results = agentResults
        };
        
        //Debug.Log(CachedPlayerPosition);
        
        handle = job.Schedule(agentPositions.Length, 64);
-       handle.Complete();
-       
-       
-       for (int i = 0; i < agents.Count; i++)
-       {
-           bool targetPosition = agentResults[i];
+       Invoke("DelayedRoundStart", 0.15f);
+    }
 
-           if (targetPosition)
-           { 
-               agents[i].navMeshAgent.SetDestination(player.transform.position);  
-           }
-           else
-           {
-               agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
-           }
-       }
+    private void DelayedRoundStart()
+    {
+        handle.Complete();
+       
+       
+        for (int i = 0; i < agents.Count; i++)
+        {
+            bool targetPosition = agentResults[i];
+
+            if (targetPosition)
+            { 
+                agents[i].navMeshAgent.SetDestination(player.transform.position);  
+            }
+            else
+            {
+                agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
+            }
+        }
     }
 
     private void OnDestroy()

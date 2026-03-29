@@ -9,6 +9,7 @@ public class Init : MonoBehaviour
 
     void Awake()
     {
+
         if(_AgentManager == null)
         {
             Debug.Log("no AgentManager Referance in Init system");

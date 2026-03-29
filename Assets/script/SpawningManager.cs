@@ -38,8 +38,6 @@ public class SpawningManager : MonoBehaviour
         defaultCapacity: 100,
         maxSize: 5000
         );
-
-
     }
 
     public ObjectPool<Agent> GetPool()
