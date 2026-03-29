@@ -22,7 +22,7 @@ public struct AgentPlayerCheckJob : IJobParallelFor
                 Results[index] = true;
                 return;
             }
-            
+
             float3 differance = CashedPlayerPosition - AgentPositions[index];
 
             float distance = Mathf.Sqrt(
@@ -30,15 +30,12 @@ public struct AgentPlayerCheckJob : IJobParallelFor
                 Mathf.Pow(differance.y, 2f) +
                 Mathf.Pow(differance.z, 2f));
             
-
-
             if (distance <= detectionRadius)
             {
                 Results[index] = true;
             }
             else
             {
-                
                 Results[index] = false;
             }
             

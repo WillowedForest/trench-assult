@@ -29,7 +29,7 @@ public class SpawningManager : MonoBehaviour
     public  void Init()
     {
         Agents = new ObjectPool<Agent>
-(
+        (
         createFunc: CreateItem,
         actionOnGet: OnGet,
         actionOnRelease: OnRelease,
@@ -69,7 +69,6 @@ public class SpawningManager : MonoBehaviour
 
     private Agent CreateItem()
     {
-        //Debug.Log($"Create a new object!");
         Agent agent = GameObject.Instantiate(_agentPrefab);
         agent.Init(Agents);
         agent.gameObject.SetActive(false);
