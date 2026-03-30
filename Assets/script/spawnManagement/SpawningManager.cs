@@ -84,20 +84,22 @@ public class SpawningManager : MonoBehaviour
 
     public void NextRound()
     {
-        if (spawnCount <= 1000)
+        int oldSpawnCound = spawnCount;
+
+        if (oldSpawnCound >= 1000)
         {
-            spawnCount = spawnCount + 500;
+            spawnCount = oldSpawnCound + 500;
         }
-        else if (spawnCount > 1000)
+        else if (oldSpawnCound < 1000)
         {
-            spawnCount = spawnCount + 100;
+            spawnCount = oldSpawnCound + 100;
         }
         else
         {
             Debug.LogError("god knows how but there is a valid number in spawn count good luck :3");
         }
         
-        for (int i = 0; i != spawnCount; ++i)
+        for (int i = oldSpawnCound; i != spawnCount; ++i)
         {
             GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             Agent agent = Agents.Get();
