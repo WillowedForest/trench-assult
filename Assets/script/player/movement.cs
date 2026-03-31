@@ -6,10 +6,11 @@ using UnityEngine.UIElements;
 
 public class movement : MonoBehaviour
 {
-
-    public float fMoveSpeed = 10.0f;
-
-    public float mouseSensitivity = 10f;
+    [SerializeField]
+    private float fMoveSpeed = 0.1f;
+    
+    [SerializeField]
+    private float mouseSensitivity = 10f;
 
     [SerializeField]
     private float gravity = -0.5f;
