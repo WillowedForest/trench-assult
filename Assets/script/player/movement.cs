@@ -2,20 +2,27 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class movement : MonoBehaviour
 {
 
     public float fMoveSpeed = 10.0f;
 
-    private Rigidbody rb;
+    public float mouseSensitivity = 2f;
+
+    [SerializeField]
+    private Transform cameraTransform;
+
+    //private Rigidbody rb;
 
 
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-    //   AgentManager.instance.player = this.gameObject;
+        // rb = GetComponent<Rigidbody>();
+        //   AgentManager.instance.player = this.gameObject;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -56,6 +63,13 @@ public class movement : MonoBehaviour
         Vector3 movement = v3MovementDirection * fMoveSpeed * Time.deltaTime;
 
         transform.Translate(movement);
+
+
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        transform.Rotate(Vector3.up * mouseX);
+        cameraTransform.Rotate(Vector3.left * mouseY);
 
 
         if (Input.GetKey("escape"))
