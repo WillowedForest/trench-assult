@@ -9,19 +9,25 @@ public class movement : MonoBehaviour
 
     public float fMoveSpeed = 10.0f;
 
-    public float mouseSensitivity = 2f;
+    public float mouseSensitivity = 10f;
+
+    [SerializeField]
+    private float gravity = -0.5f;
+
+    private CharacterController controller;
 
     [SerializeField]
     private Transform cameraTransform;
 
     //private Rigidbody rb;
-
-
+    [SerializeField]
+    private LayerMask _layerMask;
 
     void Start()
     {
         // rb = GetComponent<Rigidbody>();
         //   AgentManager.instance.player = this.gameObject;
+        controller = GetComponent<CharacterController>();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -58,24 +64,57 @@ public class movement : MonoBehaviour
 
         float fVerticalInput = Input.GetAxis("Vertical");
 
-        Vector3 v3MovementDirection = new Vector3(fHorizontalInput, 0f, fVerticalInput);
-
-        Vector3 movement = v3MovementDirection * fMoveSpeed * Time.deltaTime;
-
-        transform.Translate(movement);
+        Vector3 v3MovementDirection;
 
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        transform.Rotate(Vector3.up * mouseX);
-        cameraTransform.Rotate(Vector3.left * mouseY);
+
+        /*int layerMask = 1 << 7;
+
+        _layerMask = ~layerMask;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position - new Vector3(0f, -1f, 0f), transform.TransformDirection(Vector3.down), out hit, 2f, _layerMask))
+        {
+            Debug.DrawRay(transform.position - new Vector3(0f, 1f, 0f), transform.TransformDirection(Vector3.down) * 1f, Color.green);
+            transform.Translate(new Vector3(0f, hit.transform.position.y, 0f));
+            Debug.Log(hit.distance);
+        }
+        else
+        {
+            Debug.DrawRay(transform.position - new Vector3(0f, -1f, 0f), transform.TransformDirection(Vector3.down) * 1000, Color.red);
+            transform.Translate(new Vector3(0f, gravity, 0f));
+            Debug.Log("Did not Hit");
+        }*/
+
+        v3MovementDirection = new Vector3(fHorizontalInput, 0f, fVerticalInput);
+
+        Vector3 movement = transform.right * v3MovementDirection.x + transform.forward * v3MovementDirection.z * fMoveSpeed * Time.deltaTime;
+
+
+        if (!controller.isGrounded)
+         {
+            movement.y = gravity;
+         }
+
+
+         controller.Move(movement);
+
 
 
         if (Input.GetKey("escape"))
         {
             Application.Quit();
         }
+    }
+
+    private void LateUpdate()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        transform.Rotate(Vector3.up * mouseX);
+        cameraTransform.Rotate(Vector3.left * mouseY);
     }
 
 }

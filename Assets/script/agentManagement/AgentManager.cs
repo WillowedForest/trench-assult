@@ -21,6 +21,8 @@ public class AgentManager : MonoBehaviour
     private bool CalculationCheck = true;
     
     private float3 CachedPlayerPosition;
+    
+    
     //native arrays
     private NativeArray<float3> agentPositions;
     private NativeArray<bool> agentResults;
@@ -116,16 +118,19 @@ public class AgentManager : MonoBehaviour
            CashedPlayerPosition = player.transform.position,
            Results = agentResults
        };
-       
+
        handle = job.Schedule(agentPositions.Length, 64);
-       Invoke("DelayedPathFind", 0.15f);
+        DelayedPathFind(0.15f);
     }
-    
+
     /// <summary>
     /// never call this on its own its build to be a part of the function with the same name without delayed 
     /// </summary>
-    private void DelayedPathFind()
+    IEnumerator DelayedPathFind(float wait)
     {
+
+        yield return new WaitForSeconds(wait);
+
         handle.Complete();
        
        
