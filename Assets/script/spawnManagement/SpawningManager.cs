@@ -42,7 +42,7 @@ public class SpawningManager : MonoBehaviour
         actionOnDestroy: OnDestroyItem,
         collectionCheck: true,   // helps catch double-release mistakes
         defaultCapacity: 100,
-        maxSize: 5000
+        maxSize: 10000
         );
     }
 

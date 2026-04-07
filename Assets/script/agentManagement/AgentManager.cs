@@ -43,10 +43,11 @@ public class AgentManager : MonoBehaviour
     public void Init()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        Invoke("DelayedStart", 1);
+        Invoke("StartAgents", 1);
+      
     }
     
-    void DelayedStart()
+    public void StartAgents()
     {
         CachedPlayerPosition = player.transform.position;
         StartCoroutine(GetPlayerPos());
@@ -105,7 +106,7 @@ public class AgentManager : MonoBehaviour
 
     public void PathFind()
     {
-        
+
         for (int i = 0; i < agents.Count; i++)
         {
             agentPositions[i] = agents[i].transform.position;
@@ -120,7 +121,7 @@ public class AgentManager : MonoBehaviour
        };
 
        handle = job.Schedule(agentPositions.Length, 64);
-        DelayedPathFind(0.15f);
+       StartCoroutine(DelayedPathFind(0.15f));
     }
 
     /// <summary>
@@ -147,6 +148,8 @@ public class AgentManager : MonoBehaviour
                 agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
             }
         }
+
+
     }
 
     private void OnDestroy()

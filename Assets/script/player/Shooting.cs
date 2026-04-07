@@ -23,7 +23,7 @@ public class Shooting : MonoBehaviour
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, math.INFINITY, layerMask))
             {
                 Debug.Log("aaaaa");
-                Destroy(hit.collider.gameObject);
+                hit.collider.gameObject.GetComponent<Agent>().Kill();
             }
         }
     }

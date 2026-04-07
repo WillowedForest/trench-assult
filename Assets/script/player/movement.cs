@@ -31,7 +31,6 @@ public class movement : MonoBehaviour
             SpawningManager.instance.NextRound();
             Debug.Log(SpawningManager.instance.inScene);
         }
-
         if (Input.GetKeyDown(KeyCode.N))
         {
             AgentManager.instance.StopAgents();

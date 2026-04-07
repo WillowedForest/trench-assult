@@ -24,4 +24,9 @@ public class Agent : MonoBehaviour
     {
         AgentManager.instance.RegesterAgent(this);
     }
+
+    public void Kill()
+    {
+        _pool.Release(this);
+    }
 }
