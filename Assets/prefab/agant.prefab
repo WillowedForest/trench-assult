@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3002753575381711555}
   m_Layer: 8
   m_Name: agant
-  m_TagString: Untagged
+  m_TagString: enermy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

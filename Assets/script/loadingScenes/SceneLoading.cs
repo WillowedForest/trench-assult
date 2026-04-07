@@ -23,7 +23,7 @@ public class SceneLoading : MonoBehaviour
 
     public void LoadMainLevel()
     {
-        SceneManager.LoadScene("dev");
+        SceneManager.LoadScene("Level1");
         
     }
 

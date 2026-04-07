@@ -3,7 +3,7 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     [SerializeField]
-    private float fMoveSpeed = 0.1f;
+    private float fMoveSpeed = 0.01f;
 
     [SerializeField]
     private float gravity = -0.5f;
@@ -62,12 +62,17 @@ public class movement : MonoBehaviour
 
         v3MovementDirection = new Vector3(fHorizontalInput, 0f, fVerticalInput);
 
-        Vector3 movement = cameraTransform.right * v3MovementDirection.x + cameraTransform.forward * v3MovementDirection.z * fMoveSpeed * Time.deltaTime;
-        
-        if (!controller.isGrounded)
+        Vector3 movement = cameraTransform.right * v3MovementDirection.x * fMoveSpeed * Time.deltaTime + cameraTransform.forward * v3MovementDirection.z * fMoveSpeed * Time.deltaTime;
+
+         if (!controller.isGrounded)
          {
-            movement.y = gravity;
+             movement.y = gravity;
          }
+         else
+        {
+            movement.y = 0f;
+        }
+        
 
          controller.Move(movement);
          

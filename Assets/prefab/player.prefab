@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6219698067643417615}
   - component: {fileID: 1057449504853314292}
   - component: {fileID: 631274552643625079}
-  m_Layer: 0
+  - component: {fileID: 2493464778064008119}
+  m_Layer: 7
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +138,20 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &2493464778064008119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291662154315406174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32f5431f8b5ddba9b23adff6f39d52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
+  speedV: 4
+  speedH: 4
 --- !u!1 &9115376604733116555
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,12 +168,13 @@ GameObject:
   - component: {fileID: 2470263970928330395}
   - component: {fileID: 5509317082246325390}
   - component: {fileID: 9109318738461254616}
-  m_Layer: 0
+  - component: {fileID: 301855928720659504}
+  m_Layer: 7
   m_Name: player
-  m_TagString: target
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8167195486892840477
 Transform:
@@ -245,9 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d55bd75737a1aec0b640cbbebccacde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fMoveSpeed: 20
-  mouseSensitivity: 2
-  characterController: {fileID: 0}
+  fMoveSpeed: 5
+  gravity: -0.5
   cameraTransform: {fileID: 336888658622515417}
 --- !u!136 &8007254960165752882
 CapsuleCollider:
@@ -334,3 +349,28 @@ MonoBehaviour:
   _AgentManager: {fileID: 0}
   _SpawnManager: {fileID: 0}
   _Player: {fileID: 0}
+--- !u!143 &301855928720659504
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115376604733116555}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.49999997
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
