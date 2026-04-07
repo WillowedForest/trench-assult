@@ -180,5 +180,13 @@ public class AgentManager : MonoBehaviour
         Agent agent = agents[Random.Range(0, agents.Count)];
         SpawningManager.instance.Agents.Release(agent);    
     }
+
+    public void KillAll()
+    {
+        foreach (Agent agent in agents)
+        {
+            Destroy(agent);
+        }
+    }
     
 }

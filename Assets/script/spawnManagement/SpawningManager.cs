@@ -9,7 +9,7 @@ public class SpawningManager : MonoBehaviour
 
     public GameObject[] spawnPoints;
     
-    private WaitForSeconds _CheckInterval = new WaitForSeconds(1.0f);
+    private WaitForSeconds _CheckInterval = new WaitForSeconds(0.5f);
     
     //how many need to be spawned at the start of a round
     public int spawnCount = 100;
@@ -42,7 +42,7 @@ public class SpawningManager : MonoBehaviour
         actionOnDestroy: OnDestroyItem,
         collectionCheck: true,   // helps catch double-release mistakes
         defaultCapacity: 100,
-        maxSize: 10000
+        maxSize: 5000
         );
     }
 
@@ -85,27 +85,39 @@ public class SpawningManager : MonoBehaviour
     {
         int oldSpawnCound = spawnCount;
 
-        if (oldSpawnCound >= 1000)
+        if(spawnCount >= 5000)
         {
-            spawnCount = oldSpawnCound + 500;
-        }
-        else if (oldSpawnCound < 1000)
-        {
-            spawnCount = oldSpawnCound + 100;
+            Debug.Log(inScene);
+            isInRound = true;
+            StartCoroutine(ShouldRoundEnd());
         }
         else
         {
-            Debug.LogError("god knows how but there is a valid number in spawn count good luck :3");
-        }
+            if (oldSpawnCound >= 1000)
+            {
+                spawnCount = oldSpawnCound + 500;
+            }
+            else if (oldSpawnCound < 1000)
+            {
+                spawnCount = oldSpawnCound + 100;
+            }
+            else
+            {
+                Debug.LogError("god knows how but there is a valid number in spawn count good luck :3");
+            }
         
-        for (int i = oldSpawnCound; i != spawnCount; ++i)
-        {
-            GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-            Agent agent = Agents.Get();
-            agent.transform.position = spawner.transform.position;
+            for (int i = 0; i != spawnCount; ++i)
+            {
+                GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+                Agent agent = Agents.Get();
+                agent.transform.position = spawner.transform.position;
+            }
+            Debug.Log(inScene);
+            isInRound = true;
+            StartCoroutine(ShouldRoundEnd());
         }
 
-        StartCoroutine(ShouldRoundEnd());
+        
     }
 
     IEnumerator ShouldRoundEnd()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2463144343110226009}
   - component: {fileID: 1409299956565807207}
   - component: {fileID: 3002753575381711555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: agant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22419c382f805fc4d8de16420d275f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  navMeshAgent: {fileID: 0}
 --- !u!195 &3002753575381711555
 NavMeshAgent:
   m_ObjectHideFlags: 0

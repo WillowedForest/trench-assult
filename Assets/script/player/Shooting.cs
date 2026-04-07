@@ -10,7 +10,7 @@ public class Shooting : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class Shooting : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, math.INFINITY, layerMask))
             {
-                Debug.Log("aaaaa");
+                //Debug.Log("aaaaa");
                 hit.collider.gameObject.GetComponent<Agent>().Kill();
             }
         }

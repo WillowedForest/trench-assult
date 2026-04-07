@@ -23,8 +23,8 @@ public class SceneLoading : MonoBehaviour
 
     public void LoadMainLevel()
     {
-            SceneManager.LoadScene("dev");
-        Debug.Log("aaaaaa");
+        SceneManager.LoadScene("dev");
+        
     }
 
     public void LoadMainMenu()  

@@ -46,6 +46,10 @@ public class movement : MonoBehaviour
             AgentManager.instance.KillRandomAgent();
             Debug.Log(SpawningManager.instance.inScene);
         }
+        if (Input.GetKey(KeyCode.E))
+        {
+            AgentManager.instance.KillAll();
+        }
 	}
 
     void FixedUpdate()
