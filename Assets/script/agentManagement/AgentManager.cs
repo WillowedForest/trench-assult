@@ -21,8 +21,7 @@ public class AgentManager : MonoBehaviour
     private bool CalculationCheck = true;
     
     private float3 CachedPlayerPosition;
-
-    private bool upDatePlayerPos = false;
+    
     
     //native arrays
     private NativeArray<float3> agentPositions;
@@ -44,23 +43,24 @@ public class AgentManager : MonoBehaviour
     public void Init()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        Invoke("StartAgents", 1);
+      
     }
     
     public void StartAgents()
     {
         CachedPlayerPosition = player.transform.position;
-        upDatePlayerPos = true;
         StartCoroutine(GetPlayerPos());
 
         int agentCount = agents.Count;
         agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
         agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
+
         StartCoroutine(runCalculation());
     }
 
     public void RegesterAgent(Agent agent)
     {
-        StartCoroutine(PathFindFinish(0f));
         agents.Add(agent);
         agentPositions.Dispose();
         agentResults.Dispose();
@@ -72,7 +72,6 @@ public class AgentManager : MonoBehaviour
 
     public void UnRegesterAgent(Agent agent)
     {
-        StartCoroutine(PathFindFinish(0f));
         agents.Remove(agent);
         agentPositions.Dispose();
         agentResults.Dispose();
@@ -98,7 +97,7 @@ public class AgentManager : MonoBehaviour
     
     IEnumerator GetPlayerPos()
     {
-        while (upDatePlayerPos)
+        while (true)
         {
             CachedPlayerPosition = player.transform.position;
             yield return _GetPlayerPos; 
@@ -108,12 +107,11 @@ public class AgentManager : MonoBehaviour
     public void PathFind()
     {
 
-        for (int i = 0; i == agentPositions.Length - 1; i++)
+        for (int i = 0; i < agents.Count; i++)
         {
             agentPositions[i] = agents[i].transform.position;
         }
         
-        upDatePlayerPos = false;
        var job = new AgentPlayerCheckJob
        {
            detectionRadius = DETECTION_RADIUS,
@@ -123,24 +121,25 @@ public class AgentManager : MonoBehaviour
        };
 
        handle = job.Schedule(agentPositions.Length, 64);
-       StartCoroutine(PathFindFinish(0.15f));
+       StartCoroutine(DelayedPathFind(0.15f));
     }
 
     /// <summary>
     /// never call this on its own its build to be a part of the function with the same name without delayed 
     /// </summary>
-    IEnumerator PathFindFinish(float wait)
+    IEnumerator DelayedPathFind(float wait)
     {
 
         yield return new WaitForSeconds(wait);
 
         handle.Complete();
-        StartCoroutine(GetPlayerPos());
-
-        foreach (var result in agentResults)
+       
+       
+        for (int i = 0; i < agents.Count; i++)
         {
-            int i = 0;
-            if (result)
+            bool targetPosition = agentResults[i];
+
+            if (targetPosition)
             { 
                 agents[i].navMeshAgent.SetDestination(player.transform.position);  
             }
@@ -148,13 +147,13 @@ public class AgentManager : MonoBehaviour
             {
                 agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
             }
-            i++;
         }
+
+
     }
 
     private void OnDestroy()
     {
-        handle.Complete();
         agentPositions.Dispose();
         agentResults.Dispose();
         agents = null;
