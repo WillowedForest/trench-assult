@@ -43,8 +43,6 @@ public class AgentManager : MonoBehaviour
     public void Init()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        Invoke("StartAgents", 1);
-      
     }
     
     public void StartAgents()
@@ -61,6 +59,7 @@ public class AgentManager : MonoBehaviour
 
     public void RegesterAgent(Agent agent)
     {
+        DelayedPathFind(0);
         agents.Add(agent);
         agentPositions.Dispose();
         agentResults.Dispose();
@@ -72,6 +71,7 @@ public class AgentManager : MonoBehaviour
 
     public void UnRegesterAgent(Agent agent)
     {
+        DelayedPathFind(0);
         agents.Remove(agent);
         agentPositions.Dispose();
         agentResults.Dispose();
@@ -148,8 +148,6 @@ public class AgentManager : MonoBehaviour
                 agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
             }
         }
-
-
     }
 
     private void OnDestroy()

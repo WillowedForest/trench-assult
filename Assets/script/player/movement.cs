@@ -11,9 +11,11 @@ public class movement : MonoBehaviour
     [SerializeField] 
     private Transform cameraTransform;
 
+    private bool firstTimeStart = true;
+    
     private CharacterController controller;
-
-
+    
+    
     void Start()
     {
         // rb = GetComponent<Rigidbody>();
@@ -23,34 +25,16 @@ public class movement : MonoBehaviour
     }
 
 
-    void Update()
+    /*void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && firstTimeStart)
         {
+            firstTimeStart = false;
             SpawningManager.instance.NextRound();
             Debug.Log(SpawningManager.instance.inScene);
         }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            AgentManager.instance.StopAgents();
-        }
-
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            AgentManager.instance.restartAgents();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            AgentManager.instance.KillRandomAgent();
-            Debug.Log(SpawningManager.instance.inScene);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            AgentManager.instance.KillAll();
-        }
-	}
+	}*/
 
     void FixedUpdate()
     {
@@ -72,9 +56,8 @@ public class movement : MonoBehaviour
         {
             movement.y = 0f;
         }
-        
-
-         controller.Move(movement);
+         
+        controller.Move(movement);
          
         if (Input.GetKey("escape"))
         {

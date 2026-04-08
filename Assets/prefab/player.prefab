@@ -167,7 +167,6 @@ GameObject:
   - component: {fileID: 8007254960165752882}
   - component: {fileID: 2470263970928330395}
   - component: {fileID: 5509317082246325390}
-  - component: {fileID: 9109318738461254616}
   - component: {fileID: 301855928720659504}
   m_Layer: 7
   m_Name: player
@@ -264,6 +263,7 @@ MonoBehaviour:
   fMoveSpeed: 5
   gravity: -0.5
   cameraTransform: {fileID: 336888658622515417}
+  canvas: {fileID: 0}
 --- !u!136 &8007254960165752882
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -334,21 +334,6 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
---- !u!114 &9109318738461254616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9115376604733116555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e42bfdd00da48c5489c969e964d6e7ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Init
-  _AgentManager: {fileID: 0}
-  _SpawnManager: {fileID: 0}
-  _Player: {fileID: 0}
 --- !u!143 &301855928720659504
 CharacterController:
   m_ObjectHideFlags: 0

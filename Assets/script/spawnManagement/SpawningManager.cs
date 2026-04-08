@@ -113,11 +113,11 @@ public class SpawningManager : MonoBehaviour
                 agent.transform.position = spawner.transform.position;
             }
             Debug.Log(inScene);
+            
+            AgentManager.instance.StartAgents();
             isInRound = true;
             StartCoroutine(ShouldRoundEnd());
         }
-
-        
     }
 
     IEnumerator ShouldRoundEnd()
@@ -126,6 +126,7 @@ public class SpawningManager : MonoBehaviour
         {
             if (inScene == 0)
             {
+                AgentManager.instance.StopAgents();
                 isInRound = false;
                 Invoke("NextRound", 1.0f);
                 yield return null;
