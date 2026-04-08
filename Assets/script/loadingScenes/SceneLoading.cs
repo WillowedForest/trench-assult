@@ -18,7 +18,7 @@ public class SceneLoading : MonoBehaviour
             Debug.Log("aaaaa");
         }
 
-        //DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
     }
 
     public void LoadMainLevel()

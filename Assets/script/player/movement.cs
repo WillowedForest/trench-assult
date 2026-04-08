@@ -10,8 +10,6 @@ public class movement : MonoBehaviour
 
     [SerializeField] 
     private Transform cameraTransform;
-
-    private bool firstTimeStart = true;
     
     private CharacterController controller;
     
@@ -23,18 +21,6 @@ public class movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
-
-
-    /*void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.B) && firstTimeStart)
-        {
-            firstTimeStart = false;
-            SpawningManager.instance.NextRound();
-            Debug.Log(SpawningManager.instance.inScene);
-        }
-	}*/
 
     void FixedUpdate()
     {
@@ -61,7 +47,7 @@ public class movement : MonoBehaviour
          
         if (Input.GetKey("escape"))
         {
-            Application.Quit();
+            SceneLoading.instance.QuitGame();
         }
     }
 

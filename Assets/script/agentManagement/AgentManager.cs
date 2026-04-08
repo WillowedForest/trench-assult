@@ -21,6 +21,8 @@ public class AgentManager : MonoBehaviour
     private bool CalculationCheck = true;
     
     private float3 CachedPlayerPosition;
+
+    private Queue<Agent> agentsToRmove = new Queue<Agent>();
     
     
     //native arrays
@@ -133,7 +135,7 @@ public class AgentManager : MonoBehaviour
         yield return new WaitForSeconds(wait);
 
         handle.Complete();
-       
+        RemoveAgentsInQueue();
        
         for (int i = 0; i < agents.Count; i++)
         {
@@ -148,6 +150,27 @@ public class AgentManager : MonoBehaviour
                 agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
             }
         }
+        RemoveAgentsInQueue();
+    }
+
+    void RemoveAgentsInQueue()
+    {
+        foreach (var agent in agentsToRmove)
+        {
+            agents.Remove(agent);
+        }
+        agentsToRmove.Clear();
+        agentPositions.Dispose();
+        agentResults.Dispose();
+
+        int agentCount = agents.Count;
+        agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
+    }
+
+    public void AddToRemoveQueue(Agent agent)
+    {
+        agentsToRmove.Enqueue(agent);
     }
 
     private void OnDestroy()
