@@ -91,6 +91,7 @@ public class SpawningManager : MonoBehaviour
         {
             Debug.Log(inScene);
             isInRound = true;
+
             StartCoroutine(ShouldRoundEnd());
         }
         else
@@ -116,10 +117,10 @@ public class SpawningManager : MonoBehaviour
             }
             Debug.Log(inScene);
             
-            AgentManager.instance.StartAgents();
             isInRound = true;
             StartCoroutine(ShouldRoundEnd());
         }
+        AgentManager.instance.StartAgents();
     }
 
     IEnumerator ShouldRoundEnd()
@@ -130,7 +131,7 @@ public class SpawningManager : MonoBehaviour
             {
                 AgentManager.instance.StopAgents();
                 isInRound = false;
-                Invoke("NextRound", 1.0f);
+                StartCoroutine(DelayNextRoundStart(0.15f));
                 yield return null;
             }
             else
@@ -142,6 +143,12 @@ public class SpawningManager : MonoBehaviour
         }
     }
 
+    IEnumerator DelayNextRoundStart(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        NextRound();
+    }
+    
     
     /// <summary>
     /// only use for agents nothig else it returns the player

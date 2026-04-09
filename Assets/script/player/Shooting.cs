@@ -23,13 +23,6 @@ public class Shooting : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, math.INFINITY, layerMask))
-            {
-                hit.collider.gameObject.GetComponent<Agent>().Kill();
-                score.AddScore(10);
-            }
-            
-            
             if (canShoot)
             {
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, math.INFINITY, layerMask))

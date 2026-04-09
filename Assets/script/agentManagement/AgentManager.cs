@@ -50,13 +50,14 @@ public class AgentManager : MonoBehaviour
     
     public void StartAgents()
     {
+        AddNewAgents();
         CachedPlayerPosition = player.transform.position;
         StartCoroutine(GetPlayerPos());
 
         int agentCount = agents.Count;
         agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
         agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
-
+        CalculationCheck = true;
         StartCoroutine(runCalculation());
     }
 
@@ -86,8 +87,6 @@ public class AgentManager : MonoBehaviour
 
     public void PathFind()
     {
-        
-        AddNewAgents();
         
         for (int i = 0; i < agents.Count; i++)
         {
