@@ -283,6 +283,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7858663535843845823, guid: 384877f2fc3533067b74cb06034d60c9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e12698ff73d1e1cc8b804cbdc9fbe722, type: 2}
     - target: {fileID: 8928409835988381399, guid: 384877f2fc3533067b74cb06034d60c9, type: 3}
       propertyPath: m_Name
       value: Cylinder
@@ -588,6 +592,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a93ad9fafa7ab8d1a85b5f7815e3d2d, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall (3)
@@ -649,6 +657,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a93ad9fafa7ab8d1a85b5f7815e3d2d, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall (2)
@@ -857,6 +869,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a93ad9fafa7ab8d1a85b5f7815e3d2d, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall (1)
@@ -1044,6 +1060,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a93ad9fafa7ab8d1a85b5f7815e3d2d, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall (7)
@@ -1815,6 +1835,10 @@ PrefabInstance:
       propertyPath: score
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2787100480856741234, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 1280151358}
     - target: {fileID: 4065516417414808222, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
       propertyPath: canvas
       value: 
@@ -1829,7 +1853,7 @@ PrefabInstance:
       objectReference: {fileID: 534618890}
     - target: {fileID: 8167195486892840477, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.02
+      value: 1.14
       objectReference: {fileID: 0}
     - target: {fileID: 8167195486892840477, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1837,7 +1861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167195486892840477, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 53.8
+      value: 53.41
       objectReference: {fileID: 0}
     - target: {fileID: 8167195486892840477, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2105,6 +2129,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d02b2d25e481a89691ea6186079a617, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall (6)
@@ -2166,6 +2194,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d02b2d25e481a89691ea6186079a617, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall (4)
@@ -2311,7 +2343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3477828569060808006, guid: 9efeabc631a2dd22891acc25e945f6ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.48
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 3477828569060808006, guid: 9efeabc631a2dd22891acc25e945f6ae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2319,7 +2351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3477828569060808006, guid: 9efeabc631a2dd22891acc25e945f6ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.14
+      value: 13.07
       objectReference: {fileID: 0}
     - target: {fileID: 3477828569060808006, guid: 9efeabc631a2dd22891acc25e945f6ae, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2353,6 +2385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 7449144983795379562, guid: 9efeabc631a2dd22891acc25e945f6ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d94d585f60738121bd609421628f00a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2366,6 +2402,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2747771694738540616, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a93ad9fafa7ab8d1a85b5f7815e3d2d, type: 2}
     - target: {fileID: 4578852112993648348, guid: fee04cdc90e7798f5a88ba7fbf16bdf7, type: 3}
       propertyPath: m_Name
       value: wall

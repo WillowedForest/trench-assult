@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1057449504853314292}
   - component: {fileID: 631274552643625079}
   - component: {fileID: 2493464778064008119}
+  - component: {fileID: 2787100480856741234}
   m_Layer: 7
   m_Name: Camera
   m_TagString: Untagged
@@ -152,6 +153,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   speedV: 4
   speedH: 4
+--- !u!114 &2787100480856741234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291662154315406174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c341dba206548644eb0d6f69174e7237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shooting
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  score: {fileID: 0}
 --- !u!1 &9115376604733116555
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +185,6 @@ GameObject:
   - component: {fileID: 2470263970928330395}
   - component: {fileID: 5509317082246325390}
   - component: {fileID: 301855928720659504}
-  - component: {fileID: 2025898570632196152}
   m_Layer: 7
   m_Name: player
   m_TagString: Player
@@ -359,19 +375,3 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2025898570632196152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9115376604733116555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c341dba206548644eb0d6f69174e7237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Shooting
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  score: {fileID: 0}
