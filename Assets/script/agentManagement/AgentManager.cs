@@ -23,7 +23,8 @@ public class AgentManager : MonoBehaviour
     private float3 CachedPlayerPosition;
 
     private Queue<Agent> agentsToRmove = new Queue<Agent>();
-    
+
+    private Queue<Agent> AgentsToAdd = new Queue<Agent>();
     
     //native arrays
     private NativeArray<float3> agentPositions;
@@ -59,18 +60,6 @@ public class AgentManager : MonoBehaviour
         StartCoroutine(runCalculation());
     }
 
-    public void RegesterAgent(Agent agent)
-    {
-        DelayedPathFind(0);
-        agents.Add(agent);
-        agentPositions.Dispose();
-        agentResults.Dispose();
-
-        int agentCount = agents.Count;
-        agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
-        agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
-    }
-
     public List<Agent> GetAllAgents()
     {
         return agents;
@@ -97,7 +86,9 @@ public class AgentManager : MonoBehaviour
 
     public void PathFind()
     {
-
+        
+        AddNewAgents();
+        
         for (int i = 0; i < agents.Count; i++)
         {
             agentPositions[i] = agents[i].transform.position;
@@ -160,6 +151,26 @@ public class AgentManager : MonoBehaviour
     public void AddToRemoveQueue(Agent agent)
     {
         agentsToRmove.Enqueue(agent);
+    }
+
+    public void AddAgentsToAddQueue(Agent agent)
+    {
+        AgentsToAdd.Enqueue(agent);
+    }
+
+    void AddNewAgents()
+    {
+        foreach (var agent in AgentsToAdd)
+        {
+            agents.Add(agent);
+        }
+        AgentsToAdd.Clear();
+        agentPositions.Dispose();
+        agentResults.Dispose();
+
+        int agentCount = agents.Count;
+        agentPositions = new NativeArray<float3>(agentCount, Allocator.Persistent);
+        agentResults = new NativeArray<bool>(agentCount, Allocator.Persistent);
     }
 
     private void OnDestroy()

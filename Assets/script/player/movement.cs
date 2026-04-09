@@ -59,7 +59,7 @@ public class movement : MonoBehaviour
          
         controller.Move(movement);
          
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneLoading.instance.QuitGame();
         }
@@ -67,6 +67,8 @@ public class movement : MonoBehaviour
 
     public void TakeDamge(int inDamage)
     {
+        
+        Debug.Log("estrogen");
         health = health - inDamage;
         if (isHealing)
         {
@@ -80,6 +82,9 @@ public class movement : MonoBehaviour
             health = health - inDamage;
             StartCoroutine(WaitToHeal());
         }
+        
+        if(health <= 0)
+            SceneLoading.instance.LoadMainMenu();
     }
 
     IEnumerator WaitToHeal()
@@ -95,5 +100,10 @@ public class movement : MonoBehaviour
             health++;
             yield return new WaitForSeconds(healTimer);
         }
+    }
+
+    public movement GetPlayer()
+    {
+        return this;
     }
 }

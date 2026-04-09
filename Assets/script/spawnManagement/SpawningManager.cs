@@ -24,6 +24,9 @@ public class SpawningManager : MonoBehaviour
 
     public ObjectPool<Agent> Agents;
 
+    [SerializeField]
+    private movement player;
+
     private void Awake()
     {
         if (instance == null)
@@ -77,7 +80,6 @@ public class SpawningManager : MonoBehaviour
         Agent agent = GameObject.Instantiate(_agentPrefab);
         agent.Init(Agents);
         agent.gameObject.SetActive(false);
-
         return agent;
     }
 
@@ -138,5 +140,14 @@ public class SpawningManager : MonoBehaviour
 
             yield return _CheckInterval;
         }
+    }
+
+    
+    /// <summary>
+    /// only use for agents nothig else it returns the player
+    /// </summary>
+    public movement getPlayer()
+    {
+        return player;
     }
 }   

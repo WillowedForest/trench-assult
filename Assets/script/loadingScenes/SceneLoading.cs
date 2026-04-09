@@ -14,8 +14,8 @@ public class SceneLoading : MonoBehaviour
         }
         else
         {
-            Destroy(this);
-            Debug.Log("aaaaa");
+            Destroy(instance);
+            instance = this;
         }
 
         DontDestroyOnLoad(this);

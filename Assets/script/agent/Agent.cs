@@ -8,7 +8,6 @@ public class Agent : MonoBehaviour
 
     public NavMeshAgent navMeshAgent;
 
-
     public void Init(ObjectPool<Agent> pool)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -22,7 +21,7 @@ public class Agent : MonoBehaviour
 
     public void addToAgentList()
     {
-        AgentManager.instance.RegesterAgent(this);
+        AgentManager.instance.AddAgentsToAddQueue(this);
     }
 
     public void Kill()
