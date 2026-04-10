@@ -32,7 +32,7 @@ public class movement : MonoBehaviour
         // rb = GetComponent<Rigidbody>();
         //   AgentManager.instance.player = this.gameObject;
         controller = GetComponent<CharacterController>();
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         health = maxHealth;
     }
 
