@@ -5,11 +5,14 @@ using UnityEngine;
 public class Init : MonoBehaviour
 {
 
+    [SerializeField]
+    private movement player;
+
     private WaitForSeconds RoundStartDelay = new WaitForSeconds(2);
     
     void Start()
     {
-        SpawningManager.instance.Init();
+        SpawningManager.instance.Init(player);
         AgentManager.instance.Init();
         StartCoroutine(StartRounds());
     }

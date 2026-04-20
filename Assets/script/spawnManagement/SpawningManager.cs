@@ -35,7 +35,7 @@ public class SpawningManager : MonoBehaviour
             Destroy(this);
     }
 
-    public  void Init()
+    public  void Init(movement playerIn)
     {
         Agents = new UnityEngine.Pool.ObjectPool<Agent>
         (
@@ -48,7 +48,7 @@ public class SpawningManager : MonoBehaviour
         maxSize: 5000
         );
 
-        player = FindObjectOfType<movement>();
+        player = playerIn;
     }
 
     public UnityEngine.Pool.ObjectPool<Agent> GetPool()
@@ -119,6 +119,7 @@ public class SpawningManager : MonoBehaviour
                 agent.transform.position = spawner.transform.position;
             }
             Debug.Log(inScene);
+
             
             isInRound = true;
             StartCoroutine(ShouldRoundEnd());

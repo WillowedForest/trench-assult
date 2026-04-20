@@ -2187,6 +2187,10 @@ PrefabInstance:
       value: Input
       objectReference: {fileID: 0}
     - target: {fileID: 2493464778064008119, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
+      propertyPath: mouseSensitivity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2493464778064008119, guid: 7bf0b12bd8d51304c943b07286b2d805, type: 3}
       propertyPath: input.m_ExpectedControlType
       value: Vector2
       objectReference: {fileID: 0}
@@ -2522,6 +2526,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8650814046544837451, guid: c7c357693c5a6d243b3b9fc6bb04c583, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1730935288}
     - target: {fileID: 8650814046544837451, guid: c7c357693c5a6d243b3b9fc6bb04c583, type: 3}
       propertyPath: _Player
       value: 
