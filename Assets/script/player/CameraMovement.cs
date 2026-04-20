@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -9,17 +10,18 @@ public class CameraMovement : MonoBehaviour
 
     private float mouseSensitivity = 10f;
 
-    private float rotationX = 0f;
-
-    private float rotationY = 0f;
+    private Vector2 Rotation;
+    
+    [SerializeField]
+    private InputActionReference input;
     
     void LateUpdate()
     {
-        rotationY += speedV = Input.GetAxis("Mouse X") * mouseSensitivity;
-        rotationX -= speedH = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        Rotation.x += input.action.ReadValue<Vector2>().x;
+        Rotation.y -= input.action.ReadValue<Vector2>().y;
+        
+        Rotation.y = Mathf.Clamp(Rotation.y, -30f, 30);
 
-        rotationX = Mathf.Clamp(rotationX, -30f, 30);
-
-        transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
+        transform.eulerAngles = new Vector3(Rotation.y, Rotation.x, 0);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class Shooting : MonoBehaviour
@@ -14,13 +15,16 @@ public class Shooting : MonoBehaviour
     private bool canShoot = true;
 
     private float _shootDelay = 0.4f;
+    
+    [SerializeField]
+    private InputActionReference input;
 
     // Update is called once per frame
     void Update()
     {
         
         RaycastHit hit;
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) || input.action.IsPressed())
         {
             
             if (canShoot)

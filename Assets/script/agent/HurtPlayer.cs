@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HurtPlayer : MonoBehaviour
@@ -11,20 +9,16 @@ public class HurtPlayer : MonoBehaviour
 
     private void Start()
     {
-        player = SpawningManager.instance.getPlayer();
-    }
-
-    private void OnEnable()
-    {
-        
+       // player = SpawningManager.instance.getPlayer();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("EEn");
-        
-        if(other.gameObject.tag == "Player")
+
+        if (other.gameObject.tag == "Player")
+        {
             StartCoroutine(Hitting());
+        }
     }
 
     private void OnTriggerExit(Collider other)

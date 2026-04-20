@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
+  HurtPlayer: {fileID: 8828796854176755889}
 --- !u!195 &3002753575381711555
 NavMeshAgent:
   m_ObjectHideFlags: 0

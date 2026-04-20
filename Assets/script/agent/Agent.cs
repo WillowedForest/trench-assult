@@ -8,6 +8,8 @@ public class Agent : MonoBehaviour
 
     public NavMeshAgent navMeshAgent;
 
+    public HurtPlayer HurtPlayer;
+
     public void Init(ObjectPool<Agent> pool)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -28,4 +30,5 @@ public class Agent : MonoBehaviour
     {
         _pool.Release(this);
     }
+    
 }

@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Pool;
+using UnityEngine.Rendering;
 
 public class SpawningManager : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class SpawningManager : MonoBehaviour
     [SerializeField]
     private Agent _agentPrefab;
 
-    public ObjectPool<Agent> Agents;
+    public UnityEngine.Pool.ObjectPool<Agent> Agents;
 
     [SerializeField]
     private movement player;
@@ -37,7 +37,7 @@ public class SpawningManager : MonoBehaviour
 
     public  void Init()
     {
-        Agents = new ObjectPool<Agent>
+        Agents = new UnityEngine.Pool.ObjectPool<Agent>
         (
         createFunc: CreateItem,
         actionOnGet: OnGet,
@@ -47,9 +47,11 @@ public class SpawningManager : MonoBehaviour
         defaultCapacity: 100,
         maxSize: 5000
         );
+
+        player = FindObjectOfType<movement>();
     }
 
-    public ObjectPool<Agent> GetPool()
+    public UnityEngine.Pool.ObjectPool<Agent> GetPool()
     {
         return Agents;
     }
@@ -79,6 +81,7 @@ public class SpawningManager : MonoBehaviour
     {
         Agent agent = GameObject.Instantiate(_agentPrefab);
         agent.Init(Agents);
+        agent.HurtPlayer.player = player;
         agent.gameObject.SetActive(false);
         return agent;
     }
@@ -157,4 +160,10 @@ public class SpawningManager : MonoBehaviour
     {
         return player;
     }
+
+    public void SetPlayer(movement input)
+    {
+        player = input;
+    }
+
 }   

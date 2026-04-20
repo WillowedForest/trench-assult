@@ -32,8 +32,9 @@ public class movement : MonoBehaviour
         // rb = GetComponent<Rigidbody>();
         //   AgentManager.instance.player = this.gameObject;
         controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         health = maxHealth;
+        SpawningManager.instance.SetPlayer(this);
     }
 
     void FixedUpdate()
@@ -68,7 +69,6 @@ public class movement : MonoBehaviour
     public void TakeDamge(int inDamage)
     {
         
-        Debug.Log("estrogen");
         health = health - inDamage;
         if (isHealing)
         {
