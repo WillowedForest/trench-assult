@@ -43,7 +43,7 @@ public class SpawningManager : MonoBehaviour
         actionOnGet: OnGet,
         actionOnRelease: OnRelease,
         actionOnDestroy: OnDestroyItem,
-        collectionCheck: true,   // helps catch double-release mistakes
+        collectionCheck: true,
         defaultCapacity: 100,
         maxSize: 5000
         );
@@ -111,19 +111,20 @@ public class SpawningManager : MonoBehaviour
             {
                 Debug.LogError("god knows how but there is a valid number in spawn count good luck :3");
             }
-        
-            for (int i = 0; i != spawnCount; ++i)
-            {
-                GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-                Agent agent = Agents.Get();
-                agent.transform.position = spawner.transform.position;
-            }
-            Debug.Log(inScene);
+        }
+
+        for (int i = 0; i != spawnCount; ++i)
+        {
+            GameObject spawner = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+            Agent agent = Agents.Get();
+            agent.transform.position = spawner.transform.position;
+        }
+        Debug.Log(inScene);
 
             
-            isInRound = true;
-            StartCoroutine(ShouldRoundEnd());
-        }
+        isInRound = true;
+        StartCoroutine(ShouldRoundEnd());
+        
         AgentManager.instance.StartAgents();
     }
 

@@ -73,7 +73,6 @@ public class AgentManager : MonoBehaviour
             PathFind();
             yield return recalculatePaths;
         }
-
     }
     
     IEnumerator GetPlayerPos()
