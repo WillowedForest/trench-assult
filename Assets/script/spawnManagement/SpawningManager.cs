@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 public class SpawningManager : MonoBehaviour
 {
 
-    public static SpawningManager instance;
+    public static SpawningManager Instance;
 
     public GameObject[] spawnPoints;
     
@@ -29,8 +29,8 @@ public class SpawningManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(this);
     }
@@ -125,7 +125,7 @@ public class SpawningManager : MonoBehaviour
         isInRound = true;
         StartCoroutine(ShouldRoundEnd());
         
-        AgentManager.instance.StartAgents();
+        AgentManager.Instance.StartAgents();
     }
 
     IEnumerator ShouldRoundEnd()
@@ -134,7 +134,7 @@ public class SpawningManager : MonoBehaviour
         {
             if (inScene == 0)
             {
-                AgentManager.instance.StopAgents();
+                AgentManager.Instance.StopAgents();
                 isInRound = false;
                 StartCoroutine(DelayNextRoundStart(0.15f));
                 yield return null;

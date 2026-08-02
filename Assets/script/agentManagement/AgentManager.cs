@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class AgentManager : MonoBehaviour
 {
-    public static AgentManager instance;
+    public static AgentManager Instance;
 
     private List<Agent> agents = new List<Agent>();
 
@@ -36,8 +36,8 @@ public class AgentManager : MonoBehaviour
     
     void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(this);
     }
@@ -84,7 +84,7 @@ public class AgentManager : MonoBehaviour
         }
     }
 
-    public void PathFind()
+    private void PathFind()
     {
         
         for (int i = 0; i < agents.Count; i++)
@@ -197,7 +197,7 @@ public class AgentManager : MonoBehaviour
     public void KillRandomAgent()
     {
         Agent agent = agents[Random.Range(0, agents.Count)];
-        SpawningManager.instance.Agents.Release(agent);    
+        SpawningManager.Instance.Agents.Release(agent);    
     }
 
     public void KillAll()

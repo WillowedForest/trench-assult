@@ -18,12 +18,12 @@ public class Agent : MonoBehaviour
 
     public void removeFromAgentList()
     {
-        AgentManager.instance.AddToRemoveQueue(this);
+        AgentManager.Instance.AddToRemoveQueue(this);
     }
 
     public void addToAgentList()
     {
-        AgentManager.instance.AddAgentsToAddQueue(this);
+        AgentManager.Instance.AddAgentsToAddQueue(this);
     }
 
     public void Kill()
