@@ -44,7 +44,7 @@ public class SpawningManager : MonoBehaviour
         actionOnRelease: OnRelease,
         actionOnDestroy: OnDestroyItem,
         collectionCheck: true,
-        defaultCapacity: 100,
+        defaultCapacity: 1000,
         maxSize: 5000
         );
 
@@ -121,7 +121,7 @@ public class SpawningManager : MonoBehaviour
         }
         Debug.Log(inScene);
 
-            
+
         isInRound = true;
         StartCoroutine(ShouldRoundEnd());
         

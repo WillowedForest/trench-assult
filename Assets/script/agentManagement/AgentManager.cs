@@ -128,7 +128,7 @@ public class AgentManager : MonoBehaviour
                 agents[i].navMeshAgent.SetDestination(CachedPlayerPosition);
             }
         }
-        RemoveAgentsInQueue();
+        
     }
 
     void RemoveAgentsInQueue()
@@ -193,6 +193,7 @@ public class AgentManager : MonoBehaviour
     
     /// <summary>
     /// for debug only do not use in final game
+    /// todo make these functions work with the new system
     /// </summary>
     public void KillRandomAgent()
     {
