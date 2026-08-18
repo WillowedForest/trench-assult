@@ -34,7 +34,7 @@ public class movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         health = maxHealth;
-        SpawningManager.instance.SetPlayer(this);
+        SpawningManager.Instance.SetPlayer(this);
     }
 
     void FixedUpdate()

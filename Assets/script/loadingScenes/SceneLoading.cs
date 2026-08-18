@@ -15,7 +15,6 @@ public class SceneLoading : MonoBehaviour
         else
         {
             Destroy(instance);
-            instance = this;
         }
 
         DontDestroyOnLoad(this);

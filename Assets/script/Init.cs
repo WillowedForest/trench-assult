@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Init : MonoBehaviour
@@ -8,18 +7,18 @@ public class Init : MonoBehaviour
     [SerializeField]
     private movement player;
 
-    private WaitForSeconds RoundStartDelay = new WaitForSeconds(2);
+    private WaitForSeconds _roundStartDelay = new WaitForSeconds(2);
     
     void Start()
     {
-        SpawningManager.instance.Init(player);
-        AgentManager.instance.Init();
+        SpawningManager.Instance.Init(player);
+        AgentManager.Instance.Init();
         StartCoroutine(StartRounds());
     }
 
     IEnumerator StartRounds()
     {
-        yield return RoundStartDelay;
-        SpawningManager.instance.NextRound();
+        yield return _roundStartDelay;
+        SpawningManager.Instance.NextRound();
     }
 }

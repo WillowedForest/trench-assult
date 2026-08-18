@@ -1,8 +1,10 @@
+using Unity.Burst;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Collections;
 using UnityEngine;
 
+[BurstCompile]
 public struct AgentPlayerCheckJob : IJobParallelFor
     {
         [ReadOnly] public float detectionRadius;
